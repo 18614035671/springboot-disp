@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.disp.sys.entity.UserEntity;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ import com.disp.common.utils.R;
  * 用户表
  *
  * @author xuzl
- * @email xzl18614035671@gmail.com
+ * @email 18614035671@163.com
  * @date 2019-05-30 20:00:13
  */
 @RestController
@@ -33,16 +35,21 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
+    //@ApiOperation(value = "分页查询")
     @GetMapping(value = "getUser" )
     public R getUser(){
         List<UserEntity> list = userService.getUser();
         return R.ok(list);
     }
 
-    @GetMapping(value = "getUserPage" )
+   /* @GetMapping(value = "getUserPage" )
     public R getUserPage(Integer currentPage,Integer pageSize){
         IPage<UserEntity> list = userService.getUserPage(currentPage,pageSize);
+        return R.ok(list);
+    }*/
+   @GetMapping(value = "getUserPage" )
+    public R getUserPage(Integer currentPage,Integer pageSize){
+       IPage<UserEntity> list = userService.getUserPage(currentPage,pageSize);
         return R.ok(list);
     }
 

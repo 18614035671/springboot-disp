@@ -45,7 +45,7 @@ spring:
           config:
             multi-statement-allow: true
   redis:
-    password: 6390
+    password:
     database: 0
     timeout: 6000  # 连接超时时长（毫秒）
     jedis:
@@ -60,5 +60,15 @@ spring:
 
 mybatis:
   mapper-locations: classpath*:/mapper/**/*Dao.xml
-  type-aliases-package: com.disp.entity
+  type-aliases-package: com.disp.entity # 注意：对应实体类的路径
+ # configuration:
+  #  log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #控制台打印sql
+
+# DispProperties配置
+#disp:
+#  # 是否在控制台打印 sql语句
+#  showsql: true
+  # 时间类型参数在前端页面的展示格式，默认格式为 yyyy-MM-dd HH:mm:ss
+  #timeFormat: yyyy-MM-dd HH:mm:ss
+
 

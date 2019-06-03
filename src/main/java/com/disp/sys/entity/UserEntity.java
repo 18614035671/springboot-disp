@@ -11,13 +11,33 @@ import java.util.Date;
  * 用户表
  * 
  * @author xuzl
- * @email xzl18614035671@gmail.com
+ * @email 18614035671@163.com
  * @date 2019-05-30 20:00:13
  */
 @Data
 @TableName("tb_user")
 public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 账户状态
+	 */
+	public static final String STATUS_VALID = "1";
+
+	public static final String STATUS_LOCK = "0";
+
+	public static final String DEFAULT_THEME = "green";
+
+	public static final String DEFAULT_AVATAR = "default.jpg";
+
+	/**
+	 * 性别
+	 */
+	public static final String SEX_MALE = "0";
+
+	public static final String SEX_FEMALE = "1";
+
+	public static final String SEX_UNKNOW = "2";
 
 	/**
 	 * 用户ID
@@ -76,5 +96,6 @@ public class UserEntity implements Serializable {
 	 * 描述
 	 */
 	private String description;
+
 
 }

@@ -12,7 +12,7 @@ import java.util.Date;
  * 操作日志表
  * 
  * @author xuzl
- * @email xzl18614035671@gmail.com
+ * @email 18614035671@163.com
  * @date 2019-05-30 20:00:13
  */
 @Data

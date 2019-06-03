@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * 角色表
  * 
  * @author xuzl
- * @email xzl18614035671@gmail.com
+ * @email 18614035671@163.com
  * @date 2019-05-30 20:00:13
  */
 @Repository
