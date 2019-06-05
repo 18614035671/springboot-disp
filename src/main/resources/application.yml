@@ -45,7 +45,7 @@ spring:
           config:
             multi-statement-allow: true
   redis:
-    password:
+    password: root123456
     database: 0
     timeout: 6000  # 连接超时时长（毫秒）
     jedis:
@@ -56,7 +56,7 @@ spring:
         min-idle: 5       # 连接池中的最小空闲连接
     sentinel:
       master: testmaster
-      nodes: 127.0.0.1:6379
+      nodes: 39.107.253.206:6379
 
 mybatis:
   mapper-locations: classpath*:/mapper/**/*Dao.xml

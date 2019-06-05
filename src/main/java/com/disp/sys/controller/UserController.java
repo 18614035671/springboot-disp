@@ -1,24 +1,21 @@
 package com.disp.sys.controller;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.disp.common.utils.R;
 import com.disp.sys.entity.UserEntity;
-import com.google.gson.Gson;
+import com.disp.sys.service.UserService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.ApiIgnore;
 
-import com.disp.sys.service.UserService;
-import com.disp.common.utils.R;
+import java.util.Arrays;
+import java.util.List;
 
 
 
@@ -35,24 +32,25 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    //@ApiOperation(value = "分页查询")
+    @ApiOperation(value="获取用户", notes="获取用户详细信息")
     @GetMapping(value = "getUser" )
     public R getUser(){
         List<UserEntity> list = userService.getUser();
         return R.ok(list);
     }
 
-   /* @GetMapping(value = "getUserPage" )
-    public R getUserPage(Integer currentPage,Integer pageSize){
-        IPage<UserEntity> list = userService.getUserPage(currentPage,pageSize);
-        return R.ok(list);
-    }*/
+    @ApiOperation(value="获取用户分页", notes="获取用户详细信息分页")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "currentPage", value = "页数", required = true, dataType = "Integer",paramType = "path"),
+            @ApiImplicitParam(name = "pageSize", value = "条数", required = true, dataType = "Integer",paramType = "path")
+    })
    @GetMapping(value = "getUserPage" )
     public R getUserPage(Integer currentPage,Integer pageSize){
        IPage<UserEntity> list = userService.getUserPage(currentPage,pageSize);
         return R.ok(list);
     }
 
+    @ApiOperation(value="添加", notes="添加用户详细信息")
     @PostMapping(value = "insertUser" )
     public R insertUser(){
         try {
@@ -65,6 +63,8 @@ public class UserController {
 
     }
 
+    @ApiOperation(value="修改", notes="修改用户详细信息")
+    @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Integer", paramType = "path")
     @PostMapping(value = "updateUser")
     public R updateUser(Integer id){
         try {
@@ -86,6 +86,7 @@ public class UserController {
         }
     }
 
+    //@ApiIgnore//使用该注解忽略这个API
     @PostMapping(value = "delAllUser" )
     public R delAllUser(String[] ids){
         try {
@@ -95,6 +96,5 @@ public class UserController {
             e.printStackTrace();
             return R.error(Arrays.toString(e.getStackTrace()));
         }
-
     }
 }
