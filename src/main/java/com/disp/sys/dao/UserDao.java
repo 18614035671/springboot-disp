@@ -2,7 +2,9 @@ package com.disp.sys.dao;
 
 import com.disp.sys.entity.UserEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+import top.jfunc.json.impl.JSONObject;
 
 /**
  * 用户表
@@ -13,5 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface UserDao extends BaseMapper<UserEntity> {
-	
+
+    void insertSignatureRecord(JSONObject params);
 }

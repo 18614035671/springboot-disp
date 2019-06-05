@@ -8,10 +8,8 @@ import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.disp.sys.dao.UserDao;
@@ -20,6 +18,7 @@ import com.disp.sys.service.UserService;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import top.jfunc.json.impl.JSONObject;
 
 
 @Service("userService")
@@ -128,4 +127,41 @@ public class UserServiceImpl extends ServiceImpl<UserDao, UserEntity> implements
     //    System.out.println("当前每页显示数 ------> " + userMyPage.getSize());
     //print(userMyPage.getRecords());
     //    System.out.println("----- 自定义 XML 分页 ------");
+
+    public void doSuccessProcess(){
+        //// TODO: 2018/9/9
+        //logger.info("签名管理上报信息==================data：>" + data + "=============>seqNo：" + seqNo);
+        //通过seqNo获取下行日志及签名信息
+        //String param = instructionsExecuteLog.getParam();
+        //JSONObject jsonObject = (JSONObject) JSONObject.parse(param);
+        JSONObject jsonObject = new JSONObject("{\"keys\":[\"30819f300d06092a864886f70d010101050003818d00308189028181008c470af7c751ee12edbae8dd9e7c98fa60d3c631efa0f7172ed36c86bb85c8288391e718c05fdbef008d61f2e8fce4ef4457a69ae5a2fa53ead0c806c18f8b475847c07bf4451d82845efc30d5fc4aa2500f4bc84234a36749e83a9361c9ec89771a762e3d791eebf3154c2e95d06df95be68b4a4dcff33ef1ba5d6d90758b6d0203010001\"],\"action\":1,\"id\":27,\"type\":1}");
+        Integer action = jsonObject.getInteger("action");
+        List<String> keys = Collections.singletonList(jsonObject.getString("keys"));
+
+        JSONObject params = new JSONObject();
+
+        switch (action) {
+
+            case 1:     //添加
+                for (String key : keys) {
+                    params.put("device_id", 1);
+                    params.put("signatureList", key);
+                    userDao.insertSignatureRecord(params);
+                }
+                break;
+
+            case 2:     //删除
+////                List clearKeyList =  data.get("desc") != null ? Arrays.asList(data.get("desc")) : null;
+//                params.put("device_id", deviceId);
+//
+//                if (keys != null) {
+//                    params.put("keysList", keys);
+//                }
+//                appAutographService.deleteSignatureRecord(params);
+                break;
+
+            case 3:
+                break;
+        }
+    }
 }

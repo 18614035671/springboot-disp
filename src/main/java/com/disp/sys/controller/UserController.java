@@ -87,14 +87,16 @@ public class UserController {
     }
 
     //@ApiIgnore//使用该注解忽略这个API
-    @PostMapping(value = "delAllUser" )
-    public R delAllUser(String[] ids){
+    @PostMapping(value = "doSuccessProcess" )
+    public R doSuccessProcess(){
         try {
-            userService.delAllUser(ids);
+            userService.doSuccessProcess();
             return R.ok();
         }catch (Exception e){
             e.printStackTrace();
             return R.error(Arrays.toString(e.getStackTrace()));
         }
     }
+
+
 }

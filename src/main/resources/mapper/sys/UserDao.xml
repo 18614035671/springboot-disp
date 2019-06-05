@@ -21,5 +21,10 @@
         <result property="description" column="DESCRIPTION"/>
     </resultMap>
 
+    <insert id="insertSignatureRecord" parameterType="Map">
+        insert into tb_user(USERNAME,PASSWORD)
+        values
+            (#{device_id},#{signatureList})
+    </insert>
 
 </mapper>

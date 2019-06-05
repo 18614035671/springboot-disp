@@ -29,6 +29,7 @@ public interface UserService extends IService<UserEntity> {
 
     IPage<UserEntity> getUserPage(Integer currentPage, Integer pageSize);
 
+    void doSuccessProcess();
     //UserEntity findByName(String userName);
 }
 
