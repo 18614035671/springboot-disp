@@ -17,8 +17,6 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.util.Arrays;
 import java.util.List;
 
-
-
 /**
  * 用户表
  *
@@ -29,9 +27,17 @@ import java.util.List;
 @RestController
 @RequestMapping("sys/user")
 public class UserController {
+
     @Autowired
     private UserService userService;
 
+    /**
+     * 获取用户
+     *
+     * @return list
+     * @Author: xuzilong
+     * @Date: 2019年07月10日
+     **/
     @ApiOperation(value="获取用户", notes="获取用户详细信息")
     @GetMapping(value = "getUser" )
     public R getUser(){
@@ -39,6 +45,15 @@ public class UserController {
         return R.ok(list);
     }
 
+    /**
+     * 获取用户分页
+     *
+     * @param currentPage 当前页
+     * @param pageSize 每页条数
+     * @return
+     * @Author: xuzilong
+     * @Date: 2019年07月10日
+     **/
     @ApiOperation(value="获取用户分页", notes="获取用户详细信息分页")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "currentPage", value = "页数", required = true, dataType = "Integer",paramType = "path"),
@@ -47,56 +62,59 @@ public class UserController {
    @GetMapping(value = "getUserPage" )
     public R getUserPage(Integer currentPage,Integer pageSize){
        IPage<UserEntity> list = userService.getUserPage(currentPage,pageSize);
-        return R.ok(list);
+       return R.okPage(list);
     }
 
-    @ApiOperation(value="添加", notes="添加用户详细信息")
+    /**
+     * 添加用户
+     *
+     * @param
+     * @return
+     * @Author: xuzilong
+     * @Date: 2019年07月10日
+     **/
+    @ApiOperation(value="添加用户", notes="添加用户详细信息")
     @PostMapping(value = "insertUser" )
     public R insertUser(){
         try {
             userService.insertUser();
-            return R.ok();
         }catch (Exception e){
             e.printStackTrace();
-            return R.error(Arrays.toString(e.getStackTrace()));
         }
-
+        return R.ok();
     }
 
+    /**
+     * 修改用户
+     *
+     * @param id
+     * @return
+     * @Author: xuzilong
+     * @Date: 2019年07月10日
+     **/
     @ApiOperation(value="修改", notes="修改用户详细信息")
     @ApiImplicitParam(name = "id", value = "用户ID", required = true, dataType = "Integer", paramType = "path")
     @PostMapping(value = "updateUser")
     public R updateUser(Integer id){
         try {
             userService.updateUser(id);
-            return R.ok();
         }catch (Exception e){
             e.printStackTrace();
-            return R.error(Arrays.toString(e.getStackTrace()));
         }
+        return R.ok();
     }
+
+    @ApiIgnore//使用该注解忽略这个API
     @PostMapping(value = "deleteUser" )
     public R deleteUser(Integer id){
         try {
             userService.deleteUser(id);
-            return R.ok();
         }catch (Exception e){
             e.printStackTrace();
-            return R.error(Arrays.toString(e.getStackTrace()));
         }
+        return R.ok();
     }
 
     //@ApiIgnore//使用该注解忽略这个API
-    @PostMapping(value = "doSuccessProcess" )
-    public R doSuccessProcess(){
-        try {
-            userService.doSuccessProcess();
-            return R.ok();
-        }catch (Exception e){
-            e.printStackTrace();
-            return R.error(Arrays.toString(e.getStackTrace()));
-        }
-    }
-
 
 }
